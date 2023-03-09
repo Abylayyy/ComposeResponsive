@@ -1,41 +1,29 @@
 package kz.abylay.myresponsivecompose.ui.composable
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.Slider
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import kz.abylay.myresponsivecompose.ui.ProfileHeader
 
 @Composable
 fun NormalScreen() {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        items(10) {
-            Text(
-                text = "Item $it",
-                fontSize = 25.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Cyan)
-                    .padding(16.dp)
-            )
+    Column {
+        var progress by remember {
+            mutableStateOf(0f)
         }
-        items(10) {
-            Text(
-                text = "Item $it",
-                fontSize = 25.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Green)
-                    .padding(16.dp)
-            )
-        }
+        ProfileHeader(progress = progress)
+        Spacer(modifier = Modifier.height(32.dp))
+        Slider(
+            value = progress,
+            onValueChange = {
+                progress = it
+            },
+            modifier = Modifier.padding(horizontal = 32.dp)
+        )
     }
 }
